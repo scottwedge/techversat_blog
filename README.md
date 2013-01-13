@@ -1,4 +1,4 @@
-blog
-====
+ledi_blog
+=========
 
-Blog entries using ReStructuredText
+ReStructuredText blog entries for techversat.com.

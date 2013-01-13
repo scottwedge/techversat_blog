@@ -1,0 +1,177 @@
+:title: Quick Notes on Git
+:id: 1160
+
+
+Git for Short-Term Memory
+-------------------------
+
+I have a horrible memory. I think I am strewn over too many projects with 
+way too many tools at my disposal. I forget some of the tools I've used in
+the past if I haven't touched it in few months.
+
+Here are some of my notes on git.
+
+
+Basic Commands to Remember
+--------------------------
+
+.. code:: bash
+
+  # starting from scratch
+  mkdir <proj>
+  cd <proj>
+  git init
+  git add README
+  git commit -m 'some comment'
+  git remote add origin https://<your_git_location>
+  git push origin master
+  git pull
+  
+  # cloning from existing project
+  git clone someuser@somehost.selfip.com:monbaby.git .
+  git add <somenewfile>
+  git commit -m "my comment"
+  git push 
+  git push origin master
+  git push <remote_repos> master
+
+  # if you need to delete or modify the remote location
+  git remote show
+  git remote -v
+  git remote rm badorigin 
+  git remote set-url badorigin git@github.com:glasserc/rst2wp.git
+
+  # setting up multiple remote repositories (e.g. code.google, bitbucket)
+  git remote -v
+    gc_msp430ant    http://code.google.com/p/msp430ant (fetch)
+    gc_msp430ant    http://code.google.com/p/msp430ant (push)
+    gh_msp430ant    git@github.com:jbremnant/msp430ant.git (fetch)
+    gh_msp430ant    git@github.com:jbremnant/msp430ant.git (push)
+  git remote add gc_msp430ant git@github.com:jbremnant/msp430ant.git
+  git remote add goog <google_git_url>
+  git remote add bitb <bitbucket_git_url>
+  git push goog master
+  git push bitb master
+
+
+Forking and Pull Requests
+-------------------------
+
+https://help.github.com/articles/fork-a-repo
+https://help.github.com/articles/using-pull-requests
+
+.. code:: bash
+
+  # using github, there's "fork" link on top of the original proj
+
+  # clone the forked proj
+  git clone https://github.com/jbremnant/rst2wp.git   
+
+  # add the original repo to the remote
+  git remote add upstream git://github.com/glasserc/rst2wp.git
+
+  # pulls in changes not present in your local repos
+  git fetch upstream
+
+  # git merge upstream/master
+  git merge upstream/master
+
+
+Creating your own branch
+
+.. code:: bash
+
+  git branch mybranch
+  git checkout mybranch
+  # or shortcut
+  git checkout -b mybranch
+
+  # to switch between branches
+  git checkout master
+  git checkout mybranch
+  
+  # makes master the active branch
+  git checkout master
+  # merges the commits from mybranch into master
+  git merge mybranch
+  # deletes the mybranch
+  git branch -d mybranch
+
+
+Setting Up SSH and Your Own Git
+-------------------------------
+
+This link provides some rudimentary steps in configuring your own server
+as git repository:
+
+  http://www.corvidworks.com/articles/self-hosted-remote-git-repositories
+
+
+
+Set up SSH public key and copy it to your homedir
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+  
+    ssh-keygen -t rsa -f ~/.ssh/id_rsa.blah -C "some git"
+    touch ~/.ssh/config
+    chmod 600 ~/.ssh/config
+    echo "IdentityFile ~/.ssh/id_rsa.blah" >> ~/.ssh/config
+    # the content of this file needs to be saved under your account on remote git server
+    cat ~/.ssh/id_rsa.blah.pub
+
+
+Login to your custom git server <somehost.selfip.com>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+    vi ~/.ssh/authorized_keys
+    # now paste your public key in there. make sure you don't have any newlines in this string!
+
+
+Logout and try logging back in
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you can login to somehost.selfip.com without a pashword, you are good to go
+
+
+Pull down the files I've checked into git
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+    cd
+    mkdir -p git/monbaby
+    cd ~/git/monbaby
+    git clone someuser@somehost.selfip.com:monbaby.git .
+
+
+Check out the README
+~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+    vi README
+    # make some comments and save
+
+
+Check in the README file
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code:: bash
+
+    git add README
+    git commit -m "comment from $USER"
+    git push origin master
+    
+
+Next time, just do git pull 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Don't do clone unlesh you want to repull the entire thing
+
+.. code:: bash
+
+    git pull
+
+
