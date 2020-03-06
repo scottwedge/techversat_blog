@@ -49,8 +49,8 @@ This is a test.'''
                 'wordpress_instance': wordpress_instance
                 })
 
-        wordpress_instance.has_tag.asssert_called_with("tag1")
-        wordpress_instance.has_tag.asssert_called_with("tag2")
+        wordpress_instance.has_tag.assert_called_with("tag1")
+        wordpress_instance.has_tag.assert_called_with("tag2")
         assert raw_input.called
 
     @mock.patch('validity.raw_input')
@@ -71,6 +71,6 @@ This is a test.'''
                 'wordpress_instance': wordpress_instance
                 })
 
-        wordpress_instance.has_tag.asssert_called_with("tag1")
-        wordpress_instance.has_tag.asssert_called_with("tag2")
+        wordpress_instance.has_tag.assert_called_with("tag1")
+        wordpress_instance.has_tag.assert_called_with("tag2")
         assert not raw_input.called
